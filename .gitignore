@@ -23,3 +23,5 @@ screenshots/
 **/*.keystore
 **/*.jks
 **/audit-report.json
+deploy/certificates/
+deploy/acme/

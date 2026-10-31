@@ -23,3 +23,5 @@ backups
 references
 screenshots
 deliverables
+deploy/certificates
+deploy/acme
