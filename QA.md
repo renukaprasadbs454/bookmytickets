@@ -30,3 +30,5 @@ Final Android verification:
 - Docker-built APK SHA256: 65abf195967c8571ea3542fba57c0bf99427ed6d49fcca71bae894a2cfc3bb55.
 - Artifacts: deliverables/BOOK-MY-TICKETS-docker.apk and BOOK-MY-TICKETS.apk (44,061,663 bytes).
 - No new emulator/device installation was performed for this Docker-only change. Earlier emulator evidence in historical notes applies to the preceding build.
+
+31 October update: SMTP six-digit customer email OTP and configurable domain/localhost CORS added. All 18 integration checks and Docker mobile lint/TypeScript checks passed. Test SMTP verifies sender, code, cooldown, reuse rejection, staff-password isolation and five-attempt lockout. No real email sent: SMTP credentials remain blank. Existing APK must be rebuilt to include the new email sign-in screen. Dependency audit reports a pre-existing high-severity Sharp/libvips advisory; its recommended breaking-version upgrade is not applied by this SMTP change.

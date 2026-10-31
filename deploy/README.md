@@ -58,3 +58,25 @@ docker compose -f compose.yaml -f compose.mobile.yaml --profile mobile run --rm 
 ```
 
 The generated root environment already sets EXPO_PUBLIC_API_URL=https://user.bmt.kwiko.org. The APK is written to deliverables/. Restore your private docker/signing/debug.keystore first for an upgrade-compatible development build. That key is intentionally absent from Git; production distribution needs your own protected release signing setup.
+
+SMTP email OTP configuration (backend/.env):
+
+```dotenv
+SMTP_HOST=smtp.your-provider.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_REQUIRE_TLS=true
+SMTP_USER=your-smtp-username
+SMTP_PASSWORD=your-smtp-password
+SMTP_FROM_EMAIL=tickets@your-verified-domain.com
+```
+
+Sender display name is Book My Tickets. Port 465 normally uses SMTP_SECURE=true. Use an address verified by your SMTP provider. Codes are six digits, expire after five minutes, are single-use, and allow five verification attempts. Resends have a one-minute cooldown. OTP values are never returned or stored in plain text. Email OTP signs in customer accounts only; it does not bypass staff passwords. On the VPS recreate services after editing settings:
+
+```bash
+docker compose -f compose.yaml -f compose.vps.yaml up -d --build --wait
+```
+
+The customer mobile source now includes Continue with email; rebuild the APK to include the new screen. No real SMTP credentials are supplied, so live email delivery is unavailable until configured. SMTP tests use an isolated test server and send no external mail.
+
+CORS: set WEB_ORIGINS to a comma-separated list of exact browser origins (scheme + host + port; no paths). Generated settings include the three HTTPS domains and localhost/127.0.0.1 ports 3000, 5173, 5178, 5179, 8081 and 19006. Add other ports explicitly; there is no unrestricted wildcard. VPS Compose reads WEB_ORIGINS and BACKEND_PUBLIC_URL from root .env; backend/.env controls CORS in the local Docker stack. Native APK requests without Origin are supported, but still require valid bearer authentication on protected endpoints. The APK API URL is EXPO_PUBLIC_API_URL, set before rebuilding. BACKEND_PUBLIC_URL is https://user.bmt.kwiko.org (API under /api); no separate backend domain is needed. Recreate Docker services after environment edits.

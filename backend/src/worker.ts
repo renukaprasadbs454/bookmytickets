@@ -3,7 +3,7 @@ import {pool,tx} from './db.js';
 import {decrypt} from './crypto.js';
 import {sendConfirmation} from './providers.js';
 import {processRefund} from './commerce.js';
-export async function tick(){
+export async function tick(){await pool.query("DELETE FROM email_otps WHERE expires_at<now()-interval '1 day'");
  await pool.query("UPDATE holds SET status='expired' WHERE status='active' AND expires_at<=now()");
  await pool.query("DELETE FROM auth_challenges WHERE expires_at<now()-interval '1 day'");
  await pool.query("DELETE FROM sessions WHERE expires_at<now()");

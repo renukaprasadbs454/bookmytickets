@@ -3,14 +3,14 @@ services:
     ports: !reset []
     environment:
       NODE_ENV: production
-      PUBLIC_ORIGIN: https://user.bmt.kwiko.org
-      TICKET_PUBLIC_ORIGIN: https://user.bmt.kwiko.org
-      WEB_ORIGINS: https://admin.bmt.kwiko.org,https://partner.bmt.kwiko.org,https://user.bmt.kwiko.org
+      PUBLIC_ORIGIN: ${BACKEND_PUBLIC_URL:-https://user.bmt.kwiko.org}
+      TICKET_PUBLIC_ORIGIN: ${BACKEND_PUBLIC_URL:-https://user.bmt.kwiko.org}
+      WEB_ORIGINS: ${WEB_ORIGINS:-https://admin.bmt.kwiko.org,https://partner.bmt.kwiko.org,https://user.bmt.kwiko.org}
   worker:
     environment:
       NODE_ENV: production
-      PUBLIC_ORIGIN: https://user.bmt.kwiko.org
-      TICKET_PUBLIC_ORIGIN: https://user.bmt.kwiko.org
+      PUBLIC_ORIGIN: ${BACKEND_PUBLIC_URL:-https://user.bmt.kwiko.org}
+      TICKET_PUBLIC_ORIGIN: ${BACKEND_PUBLIC_URL:-https://user.bmt.kwiko.org}
   admin-panel:
     ports: !reset []
   partner-panel:
