@@ -1,0 +1,50 @@
+{
+  "expo": {
+    "name": "BOOK MY TICKETS",
+    "slug": "book-my-tickets",
+    "version": "2.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/book-my-tickets-icon.png",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#101014",
+        "foregroundImage": "./assets/book-my-tickets-icon.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "com.cinepass.demo",
+      "permissions": [],
+      "blockedPermissions": [
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.VIBRATE"
+      ],
+      "allowBackup": false,
+      "versionCode": 5
+    },
+    "web": {
+      "favicon": "./assets/book-my-tickets-icon.png"
+    },
+    "splash": {
+      "backgroundColor": "#FFFFFF"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      "expo-web-browser",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ]
+    ],
+    "scheme": "bookmytickets"
+  }
+}

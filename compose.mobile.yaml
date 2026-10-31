@@ -1,0 +1,33 @@
+services:
+  mobile-checks:
+    image: book-my-tickets-mobile-checks:local
+    build:
+      context: .
+      dockerfile: docker/Android.Dockerfile
+      target: mobile-checks
+    profiles: [mobile]
+    environment:
+      EXPO_PUBLIC_API_URL: ${EXPO_PUBLIC_API_URL:-http://10.0.2.2:4100}
+
+  apk:
+    image: book-my-tickets-android:local
+    build:
+      context: .
+      dockerfile: docker/Android.Dockerfile
+      target: android
+    profiles: [mobile]
+    environment:
+      EXPO_PUBLIC_API_URL: ${EXPO_PUBLIC_API_URL:-http://10.0.2.2:4100}
+    volumes:
+      - ./deliverables:/output
+      - android_gradle:/gradle-cache
+      - type: bind
+        source: ./docker/signing/debug.keystore
+        target: /signing/debug.keystore
+        read_only: true
+        bind: {create_host_path: false}
+    mem_limit: 6g
+    cpus: 2
+volumes:
+  android_gradle:
+

@@ -1,0 +1,2 @@
+import React from 'react';import {createRoot} from 'react-dom/client';import App from '@bmt/portal';import '@bmt/portal/styles.css';createRoot(document.getElementById('root')!).render(<App audience="partner"/>);
+

@@ -1,0 +1,22 @@
+{
+  "name": "book-my-tickets-platform",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend/admin-panel",
+    "frontend/partner-panel",
+    "frontend/portal-shared"
+  ],
+  "scripts": {
+    "dev": "docker compose up --build",
+    "db:up": "docker compose -p book-my-tickets up -d postgres",
+    "db:migrate": "docker compose run --rm migrate",
+    "build": "npm run build -w frontend/admin-panel && npm run build -w frontend/partner-panel",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test -w backend",
+    "start": "docker compose up -d --build --wait"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  }
+}
