@@ -17,7 +17,7 @@ mkdir -p storage/public storage/private storage/temporary
 docker run --rm -v "$PWD/storage:/storage" alpine:3.20 chown -R 1000:1000 /storage
 ```
 
-The generated VPS secrets are new, independent credentials. Never copy your local database password into an existing production database or overwrite APP_KEY when restoring encrypted data. The admin seed creates an account only if absent; it does not reset existing passwords. Optional SEED_PARTNER_EMAIL and SEED_PARTNER_PASSWORD create a partner login, with no selling rights until the normal organization approval flow. Customer accounts are created by verified SMS/Google sign-in; fake customer accounts are not seeded.
+The generated VPS secrets are new, independent credentials. Never copy your local database password into an existing production database or overwrite APP_KEY when restoring encrypted data. The admin seed creates an account only if absent; it does not reset existing passwords. Generated SEED_PARTNER_EMAIL and SEED_PARTNER_PASSWORD create a partner login (leave both blank to disable this seed), with no selling rights until the normal organization approval flow. Customer accounts are created by verified SMS/Google sign-in; fake customer accounts are not seeded.
 
 Obtain the certificate before starting the TLS gateway (replace the email):
 
@@ -49,3 +49,12 @@ docker compose -f compose.yaml -f compose.vps.yaml up -d --wait
 ```
 
 Keep encrypted off-machine copies of backups, environment files and Android signing key. Never run down -v on the live stack. PostgreSQL and the API have no public published ports in the VPS override; only the gateway exposes 80/443. Firewall access must retain SSH before restricting inbound ports. The development feature/security limitations in docs/delivery-status.md still apply; this is deployable infrastructure, not a production-readiness certification. No VPS was accessed or DNS changed by this preparation.
+
+Build a domain-connected APK using Docker (approximately 8 GB Docker memory recommended):
+
+```bash
+docker compose -f compose.yaml -f compose.mobile.yaml --profile mobile build apk
+docker compose -f compose.yaml -f compose.mobile.yaml --profile mobile run --rm apk
+```
+
+The generated root environment already sets EXPO_PUBLIC_API_URL=https://user.bmt.kwiko.org. The APK is written to deliverables/. Restore your private docker/signing/debug.keystore first for an upgrade-compatible development build. That key is intentionally absent from Git; production distribution needs your own protected release signing setup.
