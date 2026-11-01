@@ -44,3 +44,27 @@ sudo nginx -t && sudo systemctl reload nginx
 ```
 
 Environment files already exist: do not run init-env again or replace APP_KEY/database credentials. No Docker gateway certificate is required in this topology; TLS terminates at the existing host Nginx. HTTP bootstrap is only for certificate setup; sign into staff panels after HTTPS is enabled. These files have been prepared locally; they have not been applied to the remote VPS.
+
+## Applying the connection fixes to an existing HTTPS deployment
+
+This update forwards sanitized client addresses so API rate limits apply per visitor instead of per gateway. Apply the host Nginx and container changes together. The host template overwrites incoming forwarding headers; the internal gateway is loopback-only and the API has no published port. Keep those boundaries when TRUST_PROXY_HOPS=1.
+
+```bash
+cd /opt/bookmytickets
+git pull --ff-only
+sudo cp /etc/nginx/conf.d/bmt.conf /etc/nginx/conf.d/bmt.conf.backup
+# Review your existing BMT customizations before replacing its file:
+diff -u /etc/nginx/conf.d/bmt.conf deploy/host-nginx.https.conf || true
+sudo cp deploy/host-nginx.https.conf /etc/nginx/conf.d/bmt.conf
+sudo nginx -t && sudo systemctl reload nginx
+docker compose -f compose.yaml -f compose.vps.yaml -f compose.shared-proxy.yaml up -d --build --wait
+# Bind-mounted Nginx config requires reload even when Compose did not recreate it:
+docker compose -f compose.yaml -f compose.vps.yaml -f compose.shared-proxy.yaml exec gateway nginx -t
+docker compose -f compose.yaml -f compose.vps.yaml -f compose.shared-proxy.yaml exec gateway nginx -s reload
+curl -fsS https://user.bmt.kwiko.org/api/auth/capabilities
+curl -fsS 'https://user.bmt.kwiko.org/api/public/resources?kind=location'
+```
+
+Open admin.bmt.kwiko.org and sign in using the existing private backend/.env ADMIN_EMAIL / ADMIN_PASSWORD. The dashboard setup cards show what is still missing. Publish in this order: cities, categories, policy, verified partner, venue, screen/layout, content/cast, show. Customers see only approved records. These commands do not add demo catalog records or reset database credentials.
+
+The current APK uses https://user.bmt.kwiko.org with /api paths. A separate API subdomain is optional. If adding one later, update Nginx/TLS, BACKEND_PUBLIC_URL, WEB_ORIGINS where needed, Google redirect registration and EXPO_PUBLIC_API_URL before rebuilding the APK. Browser CORS origins must be exact; native Android bearer requests normally have no Origin header.

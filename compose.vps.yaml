@@ -3,6 +3,7 @@ services:
     ports: !reset []
     environment:
       NODE_ENV: production
+      TRUST_PROXY_HOPS: 1
       PUBLIC_ORIGIN: ${BACKEND_PUBLIC_URL:-https://user.bmt.kwiko.org}
       TICKET_PUBLIC_ORIGIN: ${BACKEND_PUBLIC_URL:-https://user.bmt.kwiko.org}
       WEB_ORIGINS: ${WEB_ORIGINS:-https://admin.bmt.kwiko.org,https://partner.bmt.kwiko.org,https://user.bmt.kwiko.org}

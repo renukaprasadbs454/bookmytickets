@@ -36,7 +36,7 @@ Do not add `-v` to `down`: it would remove the PostgreSQL volume. Other projects
 
 Existing private root `.env` and `backend/.env` files are reused. For a new checkout, copy their `.env.example` files and set your own independent random database password, APP_KEY (64 hex characters), and ADMIN_EMAIL / ADMIN_PASSWORD. Docker creates no default founder or catalog records. Compose supplies the database's internal hostname and the persistent upload path. Secrets and host dependencies are excluded from the build context.
 
-The admin account is seeded automatically during Docker startup from ADMIN_EMAIL, ADMIN_NAME and ADMIN_PASSWORD in backend/.env. Sign in with those values, then enroll authenticator MFA. Existing accounts are never silently reset on restart. Create cities, categories and a booking policy before approving partner submissions.
+The admin account is seeded automatically during Docker startup from ADMIN_EMAIL, ADMIN_NAME and ADMIN_PASSWORD in backend/.env. Sign in with those values using email and password. Authenticator MFA is disabled for this release. Existing accounts are never silently reset on restart. Create cities, categories and a booking policy before approving partner submissions.
 
 PostgreSQL data remains in the existing `book-my-tickets_bmt_postgres` volume. Uploaded images/documents remain on local disk in `storage/`, mounted into the API and worker. Keep the matching APP_KEY safe: encrypted records depend on it. No browser localStorage database is used.
 
@@ -84,4 +84,6 @@ SMS/Google login, WhatsApp and Razorpay still need provider configuration in bac
 
 Staff login currently uses email/password only. STAFF_MFA_ENABLED=false in backend/.env disables authenticator challenges for admins and partners. To enable MFA later, set it to true and recreate API/worker containers. Existing enrolled secrets are retained; unfinished enrollment is cleared on password-only login.
 
-VPS setup: see deploy/README.md for DNS, generated credentials, HTTPS certificates, Nginx routing and exact Docker deployment commands. Use compose.vps.yaml together with compose.yaml on the server. The customer domain currently provides catalog discovery; booking remains in the mobile app.
+VPS setup: see deploy/README.md for DNS, generated credentials, HTTPS certificates, Nginx routing and exact Docker deployment commands. On the existing shared-Nginx VPS, use compose.yaml, compose.vps.yaml and compose.shared-proxy.yaml together; see deploy/SHARED-PROXY.md. The customer domain currently provides catalog discovery; booking remains in the mobile app.
+
+Current integration release: [changes and checks](deploy/RELEASE-CHECKLIST.md), [existing VPS update commands](deploy/SHARED-PROXY.md).

@@ -2,7 +2,7 @@
   "expo": {
     "name": "BOOK MY TICKETS",
     "slug": "book-my-tickets",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "orientation": "portrait",
     "icon": "./assets/book-my-tickets-icon.png",
     "userInterfaceStyle": "automatic",
@@ -24,7 +24,7 @@
         "android.permission.VIBRATE"
       ],
       "allowBackup": false,
-      "versionCode": 5
+      "versionCode": 6
     },
     "web": {
       "favicon": "./assets/book-my-tickets-icon.png"

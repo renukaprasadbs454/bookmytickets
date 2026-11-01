@@ -1,25 +1,25 @@
-# Delivery status — 30 October 2026
+# Delivery status — 1 November 2026
 
-This is the first local full-stack review build, not a completed commercial launch. No catalog/user/venue fixtures were added to the main application database. Tests create and remove a separate database.
+This is the connected local full-stack review release, not a completed commercial launch. No catalog/user/venue fixtures were added to the main application database. Tests create and remove a separate database.
 
 | Area | Available in this build | Limits / remaining work |
 |---|---|---|
-| Founder access | One-time bootstrap, password + authenticator MFA, platform roles, invitations, access changes/revocation, user suspension, audit trail | Recovery codes and password/email recovery not implemented; two-founder approval thresholds not implemented |
+| Founder access | Environment-seeded founder, email/password login (optional MFA disabled), platform roles, invitations, access changes/revocation, user suspension, audit trail | Recovery codes and password/email recovery not implemented; two-founder approval thresholds not implemented |
 | Partner access | Self-registration, multiple organizations, owner/manager/cashier/scanner/marketing/accountant, scoped venue/event access | Scanner uses browser with hardware scanner or manual token; camera scanner/offline scanner not implemented |
 | Approval | Private verification files, partner approval, per-resource approval rules, owner approval of external venue requests | Verification is manual; no identity-provider integration |
 | Catalog | Movies/music/comedy/plays/sports/workshops/exhibitions/activities, categories, people, cities, venues, screens, layouts, price sections, general tiers, single shows | Repeating schedules, season/multi-day passes, tables, quota allocations, waitlists and POS integrations not implemented |
-| Discovery | Search, city, GPS nearby venues, cast, trailers, detail pages, favourites for experiences/venues/people | No copied BookMyShow customer/review/catalog records; no recommendations engine or full localization UI |
+| Discovery | Search, city, GPS nearby venues, type/language/genre/format filters, auto-refresh, cast, trailers, detail pages, favourites for experiences/venues/people | No copied BookMyShow customer/review/catalog records; no recommendations engine or full localization UI |
 | Inventory | PostgreSQL locked timed holds, booking cutoff/max tickets, excluded overlapping screen reservations, immutable published inventory | Single-show inventory only; multi-source inventory synchronization not implemented |
 | Commerce | Add-ons, coupons, server pricing, platform collection, Razorpay test checkout, verified captures, QR tickets, history, review after attendance | External payment round trips require credentials; cash/box-office sale entry, partial ticket refunds and gift cards/loyalty/subscriptions not implemented |
 | Finance | Founder commission/fee policy, requested refunds with founder approval, refund worker/reconciliation, encrypted approved banks, ledger and founder-recorded payouts | Payout recording does not send bank funds; no automatic splits, GST invoices/credit notes, CSV/PDF financial reports or configurable per-partner tax terms |
 | Marketing | Scheduled city/home/search/featured promotion records and coupons; marketing consent controls | No marketing campaign sender, Android/iOS push, bulk segments, advertising billing or sponsored-search ranking engine; mobile currently renders home promotion feed |
 | Messages | Independent queued booking SMS and WhatsApp ticket links, retries/statuses, missing providers skipped | Requires Twilio credentials, approved WhatsApp template, verified phone and public HTTPS origin; delivery receipts not integrated |
-| Support/reviews | Booking support API, staff support records/responses, verified attendance review submissions and moderation | Customer-facing support inbox/chat/escalation SLAs not implemented |
+| Support/reviews | Customer support screen, private request history, staff support responses, verified attendance review submissions and moderation | Live chat and escalation SLAs not implemented |
 | Media | Local disk images/private PDFs, 10 MB request limit, image decoding/re-encoding, database metadata, permission checks | No partner quotas, malware scanning, media replacement/deletion UI or video upload; trailers use HTTPS links |
 | Privacy | Secure mobile token storage, staff permissions, opt-in marketing consent, GPS permission prompt | No behavioral tracking pipeline, retention automation, customer data export/deletion workflow |
-| Operations | Dockerized PostgreSQL/API/worker/Nginx portals, automatic migrations, health checks, isolated container tests, Docker backup service and Android build profile | No deployed public environment, automatic backup schedule/restore drill, production signing/monitoring/load test |
+| Operations | Dockerized PostgreSQL/API/worker/Nginx portals, automatic migrations, health checks, isolated container tests, Docker backup service and Android build profile | Latest changes not deployed by this agent; automatic backup schedule/restore drill, production signing/monitoring/load test outstanding |
 
-## Verification evidence
+## Historical verification evidence (30 October build)
 
 - Workspace TypeScript checks and both Vite production builds passed.
 - Mobile lint and TypeScript checks passed without warnings.
@@ -37,3 +37,9 @@ Artifacts: `deliverables/BOOK-MY-TICKETS.apk`, versioned copy and SHA256 file. S
 All server services, builds, checks, migrations, backups and Android compilation now use Docker. PostgreSQL is internal-only and the existing persistent volume/media were retained. Sixteen integration checks passed in an isolated Docker test database; both portal builds, mobile lint/typecheck/Android JS export, proxy checks and the backup workflow passed inside containers. See root README and QA.md for current commands and evidence.
 
 The Docker-built Android APK completed successfully and its signature, version, embedded bundle and both native architectures were verified. No new host emulator/device run was performed for the Docker-only update; the earlier launch evidence above belongs to the preceding build. Current artifact checks and checksum are in root QA.md.
+
+## Current connection release verification
+
+Docker platform/portal type checks and production builds pass. The isolated integration suite passes 21 checks (20 subtests plus the parent test), including real approval-to-public-discovery publication, private support replies, favourites/consent persistence, GA capacity and archived-venue hold rejection. Customer mobile lint, TypeScript and Android JavaScript export pass. Seeded founder login, authenticated dashboard and CORS checks pass through the admin portal proxy. Current APK and final checksum are recorded in root QA.md after the build completes.
+
+Live public API responded during the audit with zero approved catalog listings. Empty discovery is expected until records are approved. The operator will execute the supplied VPS commands; no remote code changes were applied here. Desktop browser tools could not initialize; a Docker Chromium fallback verified both portal welcome screens and seeded password-login dashboards with zero uncaught errors. No new mobile device validation was performed.

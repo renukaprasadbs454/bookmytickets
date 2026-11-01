@@ -1,3 +1,19 @@
+# Current verification — 1 November 2026
+
+- Docker-only API, worker, PostgreSQL, admin and partner services are healthy; migrations and idempotent login seeds completed. No catalog fixtures were inserted.
+- 21 isolated integration checks passed (20 subtests plus the parent test), including approval-to-public-discovery, tenant/private-file isolation, SMTP OTP, support request privacy and staff replies, favourites/consent, assigned-seat concurrency, GA capacity, archived-venue hold blocking, signed capture/replay protection, admission, refund and bank/payout flows.
+- Platform and portal TypeScript checks, both portal production builds, mobile lint/TypeScript and Android JavaScript export passed.
+- Reproducible `docker compose exec -T api node scripts/verify-connections.mjs` passes seeded founder/partner password login, authenticated dashboard, API proxy, CORS and logout checks without displaying credentials.
+- Docker Chromium verified both welcome screens and seeded founder/partner dashboard login with zero uncaught page errors. Local screenshots/results are under ignored `.qa/browser-output/`. Desktop browser tools failed to initialize; Chromium provided the replacement verification.
+- Sharp was upgraded to 0.35.5 with matching Linux binaries/libvips. The production dependency audit (`npm audit --omit=dev`) reports zero known vulnerabilities. Image upload validation still passes.
+- Internal gateway, standalone TLS gateway and host HTTPS Nginx syntax checks pass using temporary Docker test certificates; merged VPS Compose configuration passes. Host Nginx and internal forwarding changes must be deployed together; see deploy/SHARED-PROXY.md.
+- Docker APK build passed (388 tasks, 20m25s). Version 2.0.1 / code 6, package com.cinepass.demo; embedded https://user.bmt.kwiko.org verified. Signature matches the retained development certificate SHA256 fac61745dc0903786fb9ede62a962b399f7348f0bb6f899b8332667591033b9c.
+- APK: deliverables/BOOK-MY-TICKETS-live.apk. SHA256: 36d9b1b12e694f6c48e2382f0625eb4296d7b6389cf4798b7ce78a997c889d89. Canonical Docker and BOOK-MY-TICKETS.apk copies contain the same build.
+- This APK was not installed/launched on a device or emulator. Real payment, Google, SMS and WhatsApp provider round trips were not performed.
+- No remote deployment was applied. SSH authentication was unavailable; the operator chose to run the supplied VPS commands. The public API responded during the audit, with an empty approved catalog.
+
+Earlier verification records below refer to their dated builds and artifacts.
+
 # Docker verification — 30 October 2026
 
 The runtime and build workflow is now Docker-only. No host application server, npm build, Gradle build, Metro server or Android emulator was launched for this change.
