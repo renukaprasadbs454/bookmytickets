@@ -7,3 +7,5 @@ Public discovery uses `/api/public/resources`, listing details and show inventor
 Run `docker compose up -d --build --wait` from the repository root. The migration job automatically runs the idempotent configured founder/partner login seed. Existing accounts retain their credentials. Private provider credentials and account passwords belong in backend/.env; never commit it. Staff MFA is disabled unless explicitly enabled later.
 
 Use the root README for Docker tests/APK builds and deploy/SHARED-PROXY.md for the existing VPS. Run `docker compose exec -T api node scripts/verify-connections.mjs` for local seeded-login and proxy checks. See deploy/RELEASE-CHECKLIST.md and docs/delivery-status.md for tested behavior and remaining scope.
+
+`/api/push` provides customer consent/device/inbox endpoints and founder/marketing campaign controls. The worker dispatches through optional Firebase HTTP v1 credentials. Temporary customer OTP test mode accepts 123456 only for requested eligible test challenges; marked test sessions stop working when the flag is disabled. See deploy/TEST-OTP.md.

@@ -1,4 +1,4 @@
-# Delivery status — 1 November 2026
+# Delivery status — 2 November 2026
 
 This is the connected local full-stack review release, not a completed commercial launch. No catalog/user/venue fixtures were added to the main application database. Tests create and remove a separate database.
 
@@ -12,7 +12,7 @@ This is the connected local full-stack review release, not a completed commercia
 | Inventory | PostgreSQL locked timed holds, booking cutoff/max tickets, excluded overlapping screen reservations, immutable published inventory | Single-show inventory only; multi-source inventory synchronization not implemented |
 | Commerce | Add-ons, coupons, server pricing, platform collection, Razorpay test checkout, verified captures, QR tickets, history, review after attendance | External payment round trips require credentials; cash/box-office sale entry, partial ticket refunds and gift cards/loyalty/subscriptions not implemented |
 | Finance | Founder commission/fee policy, requested refunds with founder approval, refund worker/reconciliation, encrypted approved banks, ledger and founder-recorded payouts | Payout recording does not send bank funds; no automatic splits, GST invoices/credit notes, CSV/PDF financial reports or configurable per-partner tax terms |
-| Marketing | Scheduled city/home/search/featured promotion records and coupons; marketing consent controls | No marketing campaign sender, Android/iOS push, bulk segments, advertising billing or sponsored-search ranking engine; mobile currently renders home promotion feed |
+| Marketing | Scheduled city/home/search/featured promotion records, coupons, opt-in push/inbox campaigns and delivery status | Founder/marketing campaign composer, scheduling, consent-based audiences, customer inbox and Android FCM sender are implemented; live phone delivery requires Firebase setup. iOS push, advertising billing and sponsored-search ranking remain outstanding |
 | Messages | Independent queued booking SMS and WhatsApp ticket links, retries/statuses, missing providers skipped | Requires Twilio credentials, approved WhatsApp template, verified phone and public HTTPS origin; delivery receipts not integrated |
 | Support/reviews | Customer support screen, private request history, staff support responses, verified attendance review submissions and moderation | Live chat and escalation SLAs not implemented |
 | Media | Local disk images/private PDFs, 10 MB request limit, image decoding/re-encoding, database metadata, permission checks | No partner quotas, malware scanning, media replacement/deletion UI or video upload; trailers use HTTPS links |
@@ -43,3 +43,11 @@ The Docker-built Android APK completed successfully and its signature, version, 
 Docker platform/portal type checks and production builds pass. The isolated integration suite passes 21 checks (20 subtests plus the parent test), including real approval-to-public-discovery publication, private support replies, favourites/consent persistence, GA capacity and archived-venue hold rejection. Customer mobile lint, TypeScript and Android JavaScript export pass. Seeded founder login, authenticated dashboard and CORS checks pass through the admin portal proxy. Current APK and final checksum are recorded in root QA.md after the build completes.
 
 Live public API responded during the audit with zero approved catalog listings. Empty discovery is expected until records are approved. The operator will execute the supplied VPS commands; no remote code changes were applied here. Desktop browser tools could not initialize; a Docker Chromium fallback verified both portal welcome screens and seeded password-login dashboards with zero uncaught errors. No new mobile device validation was performed.
+
+## Push and temporary OTP test stage — 2 November
+
+Admin campaigns support drafts, audience preview, immediate/scheduled queueing, cancellation, restricted tap destinations and per-status device counts. Customer consent, encrypted Android device registration and an authenticated inbox are connected. Firebase files are not available; no real phone delivery is claimed. The operator selected staged implementation of the remaining products; the roadmap is in deploy/PUSH-NOTIFICATIONS.md.
+
+The live API was reachable during the login investigation. It exposed SMTP email capability but had SMS/Google disabled; SMTP configuration presence does not prove email delivery. Requested temporary test login is now implemented behind CUSTOMER_OTP_TEST_MODE. Both email and SMS test challenges accept 123456 without delivery; staff/password accounts are excluded, and test sessions stop authenticating when the flag is disabled. The private local environment enables this flag; the VPS still requires the operator commands in deploy/TEST-OTP.md.
+
+All 42 isolated integration checks pass, including the push payload contract and customer test login isolation. The updated APK is being built separately and is recorded in QA.md after signature/live-URL checks.

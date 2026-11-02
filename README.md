@@ -87,3 +87,5 @@ Staff login currently uses email/password only. STAFF_MFA_ENABLED=false in backe
 VPS setup: see deploy/README.md for DNS, generated credentials, HTTPS certificates, Nginx routing and exact Docker deployment commands. On the existing shared-Nginx VPS, use compose.yaml, compose.vps.yaml and compose.shared-proxy.yaml together; see deploy/SHARED-PROXY.md. The customer domain currently provides catalog discovery; booking remains in the mobile app.
 
 Current integration release: [changes and checks](deploy/RELEASE-CHECKLIST.md), [existing VPS update commands](deploy/SHARED-PROXY.md).
+
+Admin push campaigns and the customer inbox: [setup and staged roadmap](deploy/PUSH-NOTIFICATIONS.md). Android alerts require the private Firebase configuration. Temporary customer-only 123456 login: [enable/disable instructions](deploy/TEST-OTP.md).

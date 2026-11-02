@@ -1,3 +1,12 @@
+# Push campaigns and customer test OTP — 2 November 2026
+
+- 42 isolated Docker integration checks pass: platform booking controls, campaign roles/consent/audiences/scheduling, Expo FCM payload mapping, retry/cancellation handling, and temporary customer OTP login.
+- Email and SMS test requests accept 123456 without SMTP/Twilio, retain cooldown/expiry/attempt limits, reject staff/password accounts and require an issued challenge. Disabling the mode rejects marked test sessions and pending test codes. The optional test-contact allowlist is checked server-side.
+- Platform/portal TypeScript checks pass. The native APK builder passed mobile lint and TypeScript checks. APK 2.1.1/code 8 is compiling with the live API URL, test-mode notices and the notification inbox; final artifact checks follow after completion.
+- Docker Chromium verified both password-login dashboards and the campaign composer/audience preview without saving or sending a campaign. Provider acceptance and delivery were simulated only in isolated tests; no real push or OTP was sent.
+- Firebase is not configured. Android phone delivery remains unverified and requires the private provider files plus an APK rebuild with its client config. Inbox campaigns are available after deploying the code.
+- Local private backend/.env enables the requested customer test mode. The remote VPS requires the operator commands in deploy/TEST-OTP.md; no remote environment/code changes were applied by this agent.
+
 # Current verification — 1 November 2026
 
 - Docker-only API, worker, PostgreSQL, admin and partner services are healthy; migrations and idempotent login seeds completed. No catalog fixtures were inserted.

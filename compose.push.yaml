@@ -1,0 +1,15 @@
+services:
+  api:
+    volumes:
+      - type: bind
+        source: ./docker/secrets/firebase-service-account.json
+        target: /run/secrets/firebase-service-account.json
+        read_only: true
+        bind: {create_host_path: false}
+  worker:
+    volumes:
+      - type: bind
+        source: ./docker/secrets/firebase-service-account.json
+        target: /run/secrets/firebase-service-account.json
+        read_only: true
+        bind: {create_host_path: false}

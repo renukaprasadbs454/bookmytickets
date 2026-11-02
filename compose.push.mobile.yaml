@@ -1,0 +1,10 @@
+services:
+  apk:
+    environment:
+      GOOGLE_SERVICES_FILE: /config/google-services.json
+    volumes:
+      - type: bind
+        source: ./docker/secrets/google-services.json
+        target: /config/google-services.json
+        read_only: true
+        bind: {create_host_path: false}

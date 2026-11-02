@@ -25,3 +25,6 @@ screenshots
 deliverables
 deploy/certificates
 deploy/acme
+
+docker/secrets
+**/google-services.json

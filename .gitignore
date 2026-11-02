@@ -25,3 +25,6 @@ screenshots/
 **/audit-report.json
 deploy/certificates/
 deploy/acme/
+
+docker/secrets/
+**/google-services.json
