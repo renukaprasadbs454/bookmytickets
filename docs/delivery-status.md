@@ -50,4 +50,4 @@ Admin campaigns support drafts, audience preview, immediate/scheduled queueing, 
 
 The live API was reachable during the login investigation. It exposed SMTP email capability but had SMS/Google disabled; SMTP configuration presence does not prove email delivery. Requested temporary test login is now implemented behind CUSTOMER_OTP_TEST_MODE. Both email and SMS test challenges accept 123456 without delivery; staff/password accounts are excluded, and test sessions stop authenticating when the flag is disabled. The private local environment enables this flag; the VPS still requires the operator commands in deploy/TEST-OTP.md.
 
-All 42 isolated integration checks pass, including the push payload contract and customer test login isolation. The updated APK is being built separately and is recorded in QA.md after signature/live-URL checks.
+All 42 isolated integration checks pass, including the push payload contract and customer test login isolation. The user deferred the updated APK build on 3 November because C: was full. Source is ready; no final 2.1.1 artifact is claimed. Existing API-connected APKs accept the test code manually after the backend update.
