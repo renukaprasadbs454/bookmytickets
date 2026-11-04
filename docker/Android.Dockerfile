@@ -5,6 +5,7 @@ ENV CI=1 EXPO_NO_TELEMETRY=1
 COPY frontend/user-app/package.json frontend/user-app/package-lock.json ./
 RUN npm ci --no-audit --no-fund
 COPY frontend/user-app ./
+RUN npm run prepare:icons
 FROM mobile-source AS mobile-checks
 RUN npm run lint && npm run typecheck
 CMD ["npx", "expo", "export", "--platform", "android", "--output-dir", "/tmp/mobile-export"]

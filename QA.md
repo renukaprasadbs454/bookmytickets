@@ -82,3 +82,7 @@ Phone and email screens share a centred, branded authentication layout with them
 ### Category illustration refresh
 
 Discovery categories now use local SVG illustrations, individual accent palettes, larger icon areas, consistent two-line labels and a purple selected state. Existing category records and horizontal rail controls are preserved. Docker lint/typecheck/web export passed. Desktop/mobile and both theme screenshots inspected. Browser checks cover all ten seeded options, Movies filtering, All experiences reset, accessible pressed state and horizontal wheel scrolling. No backend or dependency changes; native device runtime remains unverified.
+
+### Flaticon category assets
+
+Replaced custom category illustrations with ten public free PNG icons sourced from Flaticon. Exact IDs, creators, source pages and CDN URLs are recorded in the mobile scripts manifest and FLATICON-CREDITS.md. Visible attribution appears below the category row. Raw licensed PNGs are excluded from Git; standard web/mobile Docker builds prepare and bundle them. Web Docker build successfully downloaded all ten PNGs, passed lint/TypeScript and exported the site. Browser checks verified all ten images loaded from bundled app assets, visible credits, movie filtering/reset, accessible selection, two themes, phone layout and scrolling with zero uncaught errors. No live CDN requests are needed by the customer at runtime. APK build remains deferred.

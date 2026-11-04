@@ -28,3 +28,6 @@ deploy/acme/
 
 docker/secrets/
 **/google-services.json
+
+# Licensed category files are downloaded at Docker build time, not redistributed as raw source.
+frontend/user-app/assets/flaticon/

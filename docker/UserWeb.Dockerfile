@@ -5,7 +5,7 @@ RUN npm ci --no-audit --no-fund
 COPY frontend/user-app ./
 ARG EXPO_PUBLIC_API_URL=
 ENV EXPO_PUBLIC_API_URL=${EXPO_PUBLIC_API_URL}
-RUN npm run lint && npm run typecheck && npx expo export --platform web
+RUN npm run prepare:icons && npm run lint && npm run typecheck && npx expo export --platform web
 FROM nginx:1.28-alpine
 COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist /usr/share/nginx/html
