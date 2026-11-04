@@ -106,3 +106,5 @@ Existing private `backend/.env` supplies founder and partner seed credentials. C
 Local sample catalog and partner accounts: [Local demo guide](deploy/LOCAL-DEMO.md).
 
 Deploy the full customer web app on the existing VPS: [Update customer web](deploy/UPDATE-CUSTOMER-WEB.md).
+
+Actor profiles, date/venue booking, seat layout controls and configurable fee GST: [Booking upgrade guide](deploy/BOOKING-UPGRADE.md).

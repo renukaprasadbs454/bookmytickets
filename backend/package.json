@@ -10,7 +10,8 @@
     "bootstrap": "tsx scripts/bootstrap.ts",
     "typecheck": "tsc --noEmit",
     "test": "tsx --test tests/*.test.ts",
-    "seed:demo": "tsx scripts/seed-demo.ts"
+    "seed:demo": "tsx scripts/seed-demo.ts",
+    "seed:profiles": "tsx scripts/seed-profiles.ts"
   },
   "dependencies": {
     "@types/nodemailer": "^8.0.2",
