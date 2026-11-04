@@ -78,3 +78,7 @@ Production Compose now builds the same customer web app as local review, replaci
 ### Customer sign-in design refresh
 
 Phone and email screens share a centred, branded authentication layout with theme-aware cards and responsive sizing. India mobile input has a separate +91 prefix, 10-digit validation and pasted-number normalisation. OTP entry supports six digits, autofill, wrong-code errors, resend countdown and changing contact. Unconfigured providers are hidden; native Google flow is retained when available. Test-mode notices remain visible without dominating the form. Docker lint/typecheck/web export passed. Docker Chromium verified mobile validation, pasted +91 number, rejected wrong code, customer mobile and email test-OTP login, hidden unavailable Google, light/dark and desktop/mobile layouts with zero uncaught errors. Screenshots visually reviewed. No backend auth changes or APK rebuild.
+
+### Category illustration refresh
+
+Discovery categories now use local SVG illustrations, individual accent palettes, larger icon areas, consistent two-line labels and a purple selected state. Existing category records and horizontal rail controls are preserved. Docker lint/typecheck/web export passed. Desktop/mobile and both theme screenshots inspected. Browser checks cover all ten seeded options, Movies filtering, All experiences reset, accessible pressed state and horizontal wheel scrolling. No backend or dependency changes; native device runtime remains unverified.
