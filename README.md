@@ -89,3 +89,20 @@ VPS setup: see deploy/README.md for DNS, generated credentials, HTTPS certificat
 Current integration release: [changes and checks](deploy/RELEASE-CHECKLIST.md), [existing VPS update commands](deploy/SHARED-PROXY.md).
 
 Admin push campaigns and the customer inbox: [setup and staged roadmap](deploy/PUSH-NOTIFICATIONS.md). Android alerts require the private Firebase configuration. Temporary customer-only 123456 login: [enable/disable instructions](deploy/TEST-OTP.md).
+
+### Local Docker with customer web app
+
+```powershell
+docker compose -f compose.yaml -f compose.local.yaml up -d --build --wait
+```
+
+- Admin: http://localhost:5178
+- Partner: http://localhost:5179
+- Customer app (React Native web): http://localhost:5180
+- API health: http://localhost:4100/health
+
+Existing private `backend/.env` supplies founder and partner seed credentials. Customer OTP test mode accepts `123456` after requesting a code when `CUSTOMER_OTP_TEST_MODE=true`. Browser sessions use tab-scoped session storage; Android retains encrypted SecureStore. Android push registration stays native; the web notification inbox uses the same API. This local override does not change VPS routing.
+
+Local sample catalog and partner accounts: [Local demo guide](deploy/LOCAL-DEMO.md).
+
+Deploy the full customer web app on the existing VPS: [Update customer web](deploy/UPDATE-CUSTOMER-WEB.md).

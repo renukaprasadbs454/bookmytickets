@@ -57,3 +57,20 @@ Final Android verification:
 - No new emulator/device installation was performed for this Docker-only change. Earlier emulator evidence in historical notes applies to the preceding build.
 
 31 October update: SMTP six-digit customer email OTP and configurable domain/localhost CORS added. All 18 integration checks and Docker mobile lint/TypeScript checks passed. Test SMTP verifies sender, code, cooldown, reuse rejection, staff-password isolation and five-attempt lockout. No real email sent: SMTP credentials remain blank. Existing APK must be rebuilt to include the new email sign-in screen. Dependency audit reports a pre-existing high-severity Sharp/libvips advisory; its recommended breaking-version upgrade is not applied by this SMTP change.
+
+## Local catalog and storefront review - 4 November 2026
+
+- Explicit Docker-only `seed:demo` succeeded: three owner logins and memberships, eight cities, nine categories, 24 venues/layouts, 11 experiences, eight cast/crew records, 88 future shows, assigned-seat and tier inventory, eight add-ons, three promotions, a coupon and policy. Repeat execution created zero duplicate shows and retained existing passwords.
+- Local disk WebP assets fetched successfully from the source URLs in the seed; public image API returned the correct MIME type.
+- Backend suite: 42/42 passed in isolated Docker PostgreSQL. Backend/portal TypeScript and customer lint/typecheck/web export passed.
+- 32 connected HTTP checks passed: all three partner logins and memberships, founder owner directory, city filtering, local images, promotion draft invisibility and approve/update/restore flow, customer OTP, profile editing and saved count.
+- Docker Chromium passed admin/partner welcome/login, three partner cards and promotions table, customer light/dark discovery, city selection, movie detail, OTP login, profile name save and reload, notification inbox. Zero uncaught browser errors. Screenshots inspected; missing glyphs replaced with SVG icons.
+- All six runtime services are healthy: PostgreSQL, API, worker, founder portal, partner portal and customer web. Local seed content is sample availability. No real payments, messages, identity verification or fabricated reviews/bookings were introduced.
+
+### Filter popup and horizontal scrolling
+
+Customer filters now open in a centred modal with a dimmed backdrop, scrollable options and fixed Close/Clear/Show results controls. All four horizontal rails use native nested scrolling on mobile and browser scroll containers with visible scrollbars, arrows, mouse dragging, wheel and keyboard support on web. Docker lint, TypeScript and web export passed. Docker Chromium verified filter apply/clear/close/Escape, horizontal mouse drag without accidental category selection, wheel, arrow controls, keyboard, CDP touch swipes, and overflow for categories, promotions, movies and venues. No uncaught browser errors. Popup screenshot visually inspected. Native device runtime remains unverified; APK build remains deferred.
+
+### VPS full customer web routing fix
+
+Production Compose now builds the same customer web app as local review, replacing the legacy static landing-page mount. Both gateway templates point to customer-web:8080. Browser API/media requests use the current origin by default; native builds retain configured API URLs. Docker customer lint/typecheck/export passed. Merged VPS/shared-proxy Compose verified customer image/build, absence of legacy bind mount, private gateway port 18089 and customer health dependency. Nginx syntax check passed in a disposable gateway container. Docker Chromium replay through that gateway under https://user.bmt.kwiko.org verified full storefront, filter popup, customer OTP login and profile: 44 same-origin API/media requests, zero uncaught errors. This is local verification, not deployment to the live VPS.

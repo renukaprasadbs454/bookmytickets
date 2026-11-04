@@ -12,3 +12,5 @@
 .push-campaigns .row-actions{display:flex;gap:12px;flex-wrap:wrap}
 .push-campaigns .row-actions button{font-size:14px;min-height:42px;padding:12px 18px}
 .push-campaigns .row-actions .primary{color:white}
+
+.partner-directory{margin-bottom:24px}.partner-card{padding:24px;overflow-wrap:anywhere}.partner-card p{color:var(--muted);line-height:1.7}.partner-capabilities{display:flex;gap:6px;flex-wrap:wrap;margin:16px 0}.partner-card .section-heading{padding:0;margin-bottom:12px}.partner-card .tag{font-size:10px}

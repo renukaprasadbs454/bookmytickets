@@ -2,7 +2,7 @@ import React from 'react';
 import {ActivityIndicator,Pressable,ScrollView,StyleSheet,Text,View} from 'react-native';
 import {useSession} from './session';
 export function usePalette(){const {mode}=useSession();return mode==='dark'?{bg:'#101014',surface:'#1b1822',text:'#f5f0fd',muted:'#a39bad',border:'#37303f',accent:'#ae8af7',tint:'#312342',button:'#21132e'}:{bg:'#f7f5fb',surface:'#fff',text:'#251c35',muted:'#776b87',border:'#e5deef',accent:'#7040cd',tint:'#eee5fc',button:'#fff'}}
-export function Screen({children}:{children:React.ReactNode}){const c=usePalette();return <ScrollView style={{flex:1,backgroundColor:c.bg}} contentContainerStyle={{padding:22,gap:18,paddingBottom:40}} keyboardShouldPersistTaps="handled">{children}</ScrollView>}
+export function Screen({children}:{children:React.ReactNode}){const c=usePalette();return <ScrollView style={{flex:1,backgroundColor:c.bg}} contentContainerStyle={{padding:22,gap:18,paddingBottom:40,width:'100%',maxWidth:1180,alignSelf:'center'}} keyboardShouldPersistTaps="handled">{children}</ScrollView>}
 export function Heading({children}:{children:React.ReactNode}){const c=usePalette();return <Text style={{color:c.text,fontSize:25,fontWeight:'800',lineHeight:33}}>{children}</Text>}
 export function Muted({children}:{children:React.ReactNode}){const c=usePalette();return <Text style={{color:c.muted,fontSize:13,lineHeight:22}}>{children}</Text>}
 export function Card({children}:{children:React.ReactNode}){const c=usePalette();return <View style={{padding:18,borderRadius:18,gap:10,backgroundColor:c.surface,borderWidth:1,borderColor:c.border}}>{children}</View>}

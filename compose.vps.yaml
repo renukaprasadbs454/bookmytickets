@@ -17,11 +17,15 @@ services:
   partner-panel:
     ports: !reset []
   customer-web:
-    image: nginx:1.28-alpine
-    volumes:
-      - ./frontend/customer-web:/usr/share/nginx/html:ro
+    image: book-my-tickets-user-web:local
+    build:
+      context: .
+      dockerfile: docker/UserWeb.Dockerfile
     networks: [platform]
     restart: unless-stopped
+    security_opt: [no-new-privileges:true]
+    depends_on:
+      api: {condition: service_healthy}
   gateway:
     image: nginx:1.28-alpine
     ports: ['80:80', '443:443']
@@ -35,7 +39,7 @@ services:
       api: {condition: service_healthy}
       admin-panel: {condition: service_healthy}
       partner-panel: {condition: service_healthy}
-      customer-web: {condition: service_started}
+      customer-web: {condition: service_healthy}
   certbot:
     image: certbot/certbot:latest
     profiles: [tls]

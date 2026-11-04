@@ -1,0 +1,21 @@
+services:
+  api:
+    environment:
+      PUBLIC_ORIGIN: http://localhost:5180
+      TICKET_PUBLIC_ORIGIN: http://localhost:5180
+      WEB_ORIGINS: http://localhost:5178,http://localhost:5179,http://localhost:5180,http://127.0.0.1:5178,http://127.0.0.1:5179,http://127.0.0.1:5180
+  worker:
+    environment:
+      PUBLIC_ORIGIN: http://localhost:5180
+      TICKET_PUBLIC_ORIGIN: http://localhost:5180
+  customer-web:
+    image: book-my-tickets-user-web:local
+    build:
+      context: .
+      dockerfile: docker/UserWeb.Dockerfile
+    ports: ['127.0.0.1:5180:8080']
+    restart: unless-stopped
+    depends_on:
+      api: {condition: service_healthy}
+    networks: [platform]
+    security_opt: [no-new-privileges:true]

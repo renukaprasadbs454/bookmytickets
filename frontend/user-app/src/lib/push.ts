@@ -1,6 +1,6 @@
 import {Platform} from 'react-native';
 import * as Notifications from 'expo-notifications';
-import * as SecureStore from 'expo-secure-store';
+import * as SecureStore from './secure-storage';
 import * as Crypto from 'expo-crypto';
 import {api} from './session';
 const key='bmt-push-device';
